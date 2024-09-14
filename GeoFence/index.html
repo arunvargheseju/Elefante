@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<title>Elephant Guard</title>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @media only screen and (max-width: 600px) {
+            .login-page {
+                width: 360px;
+                padding: 40% 0 0;
+                margin: auto;
+            }
+        }
+        
+        @media only screen and (min-width: 768px) {
+            .login-page {
+                width: 360px;
+                padding: 8% 0 0;
+                margin: auto;
+            }
+        }
+        
+        .form {
+            font-family: "Roboto", serif;
+            font-size: 19.2px;
+            position: relative;
+            z-index: 1;
+            border-radius: 5px;
+            background: #FFFFFF;
+            max-width: 360px;
+            margin: 0 auto 100px;
+            padding: 45px;
+            text-align: left;
+            box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 10px 10px 0 rgba(0, 0, 0, 0.24);
+            opacity: 100;
+        }
+        
+        .form input[type=month] {
+            font-family: "Roboto", serif;
+            outline: 0;
+            background: #f2f2f2;
+            width: 100%;
+            border: 0;
+            margin: 0 0 15px;
+            padding: 15px;
+            box-sizing: border-box;
+            font-size: 14px;
+        }
+        
+        .form input[type="submit"] {
+            font-family: "Roboto", serif;
+            text-transform: uppercase;
+            outline: 0;
+            background: #2196f3;
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            padding: 15px;
+            color: #FFFFFF;
+            font-size: 14px;
+            -webkit-transition: all 0.3 ease;
+            transition: all 0.3 ease;
+            cursor: pointer;
+        }
+        
+        .form input[type="submit"]:hover,
+        .form input[type="submit"]:active,
+        .form input[type="submit"]:focus {
+            background: #0d47a1;
+        }
+        
+        .form .login-form {
+            display: none;
+        }
+        
+        .form .message {
+            margin: 15px 0 0;
+            color: #b3b3b3;
+            font-size: 15px;
+        }
+        
+        .form .message a {
+            color: #2196f3;
+            text-decoration: none;
+        }
+        
+        body {
+            background: #42a5f5;
+            /* fallback for old browsers */
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="form">
+            <form onsubmit="geofence()" class="register-form" id="1">
+                <h1>Elephant Guard</h1>
+                <p>To view the geofence please select month</p>
+                <input type="month" id="month" name="month" value="2020-01" />
+                <input type="submit" name="action" value="Submit" />
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function geofence() {
+            month = document.getElementById("month").value;
+            url = "map.html?date=" + month
+            window.open(url, );
+        }
+    </script>
+</body>
+
+</html>

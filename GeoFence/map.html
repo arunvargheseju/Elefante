@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>GeoFence</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+    <style type='text/css'>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', Helvetica, Arial, Sans-Serif
+        }
+    </style>
+</head>
+
+<body>
+    <div id='myMap' style='width: 100%; height: 100%;'></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type='text/javascript'>
+        var url_string = window.location.href;
+        var url = new URL(url_string);
+        var m = url.searchParams.get("date");
+        console.log(m);
+
+        function loadMapScenario() {
+            var apiKey = "Ajh2OtmG0lFiJ5shJ1riIGdVDkS1rI1Px7zW2qDBqbdYAIJ-JnyYU_i5L9Pos8Hy";
+            var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+                credentials: apiKey
+            });
+            $.ajax({
+                url: "https://storage.googleapis.com/getfit-94c47.appspot.com/" + m + ".txt",
+                success: function(result) {
+                    console.log(result)
+                    var occurences = [],
+                        rxp = /\[(.*?)\]/g,
+                        str = result.slice(1, -1),
+                        curMatch;
+
+                    while (curMatch = rxp.exec(str)) {
+                        occurences.push(curMatch[1]);
+                    }
+                    map.setView({
+                        mapTypeId: Microsoft.Maps.MapTypeId.road,
+                        center: new Microsoft.Maps.Location(occurences[0].split(',')[0], occurences[0].split(',')[1]),
+                        zoom: 18
+                    });
+                    vertices = []
+                    for (var i = 0, occurence; occurence = occurences[i]; i++) {
+                        lat = occurence.split(',')[0]
+                        lng = occurence.split(',')[1]
+                        let marker = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(lat, lng));
+                        map.entities.push(marker);
+                        vertices[i] = new Microsoft.Maps.Location(lat, lng);
+
+                    }
+
+                    var rings = vertices;
+                    var polygon = new Microsoft.Maps.Polygon(rings, {
+                        fillColor: 'rgba(0, 255, 0, 0.5)',
+                        strokeColor: 'red',
+                        strokeThickness: 2
+                    });
+
+                    map.entities.push(polygon);
+
+                }
+            });
+
+        }
+    </script>
+    <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=YourBingMapsKey&callback=loadMapScenario' async defer></script>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+subprocess
+json
+sys
+threading
+board
+adafruit_gps
+serial
+requests
+google-cloud-storage
+firebase
+firebase_admin
